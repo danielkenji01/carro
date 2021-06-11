@@ -3,14 +3,21 @@ package com.fatec.carro.dto;
 import com.fatec.carro.model.Carro;
 import com.fatec.carro.model.TipoCarro;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class CarroDTO {
 
+    @NotBlank
     private String modelo;
 
+    @NotBlank
     private String marca;
 
+    @NotBlank
     private String cor;
 
+    @NotNull
     private TipoCarro tipo;
 
     public CarroDTO() {

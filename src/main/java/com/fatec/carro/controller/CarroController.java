@@ -6,10 +6,12 @@ import com.fatec.carro.model.TipoCarro;
 import com.fatec.carro.service.CarroService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +45,12 @@ public class CarroController {
     }
 
     @PostMapping("/carros/novo")
-    public String novoCarro(CarroDTO carroDTO) {
+    public String novoCarro(@Valid CarroDTO carroDTO,
+                            BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "redirect:/carros/novo";
+        }
 
         Carro carro = carroDTO.toCarro();
 
@@ -54,7 +61,8 @@ public class CarroController {
 
     @GetMapping("/carros/{carroId}/editar")
     public String editarCarro(@PathVariable Long carroId,
-                                  Model model) {
+                              CarroDTO carroDTO,
+                              Model model) {
 
         Optional<Carro> carroOptional = carroService.buscarPorId(carroId);
 
@@ -62,7 +70,9 @@ public class CarroController {
             return "redirect:/carros";
         }
 
-        model.addAttribute("carroDTO", new CarroDTO(carroOptional.get()));
+        if (carroDTO == null) {
+            model.addAttribute("carroDTO", new CarroDTO(carroOptional.get()));
+        }
         model.addAttribute("isEdicao", true);
         model.addAttribute("tipos", TipoCarro.values());
 
@@ -71,7 +81,12 @@ public class CarroController {
 
     @PostMapping("/carros/{carroId}/editar")
     public String editarCarro(@PathVariable Long carroId,
-                                  CarroDTO carroDTO) {
+                              @Valid CarroDTO carroDTO,
+                              BindingResult result) {
+
+        if (result.hasErrors()) {
+            return String.format("redirect:/carros/%s/editar", carroId);
+        }
 
         Optional<Carro> carroOptional = carroService.buscarPorId(carroId);
 
