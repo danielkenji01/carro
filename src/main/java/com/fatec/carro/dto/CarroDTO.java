@@ -23,6 +23,22 @@ public class CarroDTO {
         this.tipo = carro.getTipo();
     }
 
+    public String getModelo() {
+        return modelo;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public String getCor() {
+        return cor;
+    }
+
+    public TipoCarro getTipo() {
+        return tipo;
+    }
+
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }

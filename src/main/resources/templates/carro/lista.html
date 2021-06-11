@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de carros</title>
+    <link th:rel="stylesheet" th:href="@{assets/select2-develop/dist/css/select2.css}"/>
+    <link th:rel="stylesheet" th:href="@{assets/select2-bootstrap4-theme-master/dist/select2-bootstrap4.css}"/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+    <div th:replace="main :: header">
+
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="mt-5 col-sm-12">
+                <a href="/carros/novo" class="btn btn-primary" type="submit">Novo carro</a>
+            </div>
+            <div class="mt-5 col-sm-12">
+                <table class="table table-stripered table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Cor</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">#</th>
+                        <th scope="col">#</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="carro : ${carros}">
+                        <th th:text="${carro?.id}">1</th>
+                        <td th:text="${carro?.modelo}">Mark</td>
+                        <td th:text="${carro?.marca}">Mark</td>
+                        <td th:text="${carro?.cor}">Mark</td>
+                        <td th:text="${carro?.tipo?.nome}">Mark</td>
+                        <td><a th:href="@{/carros/__${carro.id}__/editar}">Editar</a></td>
+                        <td><a th:href="@{/carros/__${carro.id}__/excluir}">Excluir</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
