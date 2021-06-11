@@ -61,7 +61,6 @@ public class CarroController {
 
     @GetMapping("/carros/{carroId}/editar")
     public String editarCarro(@PathVariable Long carroId,
-                              CarroDTO carroDTO,
                               Model model) {
 
         Optional<Carro> carroOptional = carroService.buscarPorId(carroId);
@@ -70,9 +69,7 @@ public class CarroController {
             return "redirect:/carros";
         }
 
-        if (carroDTO == null) {
-            model.addAttribute("carroDTO", new CarroDTO(carroOptional.get()));
-        }
+        model.addAttribute("carroDTO", new CarroDTO(carroOptional.get()));
         model.addAttribute("isEdicao", true);
         model.addAttribute("tipos", TipoCarro.values());
 
